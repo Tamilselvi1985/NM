@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr.P.Tamilselvi Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      color: #2b2525;
+    }
+    header {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem 5rem;
+      position: relative;
+    }
+    .profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  position: relative;
+  margin-top: -80px;
+  margin-bottom: 1rem;
+}
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .tabs button {
+      padding: 0.8rem 1.5rem;
+      background: #ffffff;
+      border: 2px solid #2a5298;
+      border-radius: 8px;
+      margin: 0.5rem;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: #2a5298;
+      transition: all 0.3s ease;
+    }
+    .tabs button:hover,
+    .tabs button.active {
+      background: #135ee0;
+      color: #fff;
+      border-color: #1752b9;
+    }
+    section {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      margin-top: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      display: none;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.5s ease;
+    }
+    section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h2 {
+      color: #2a5298;
+      margin-bottom: 1rem;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+    .download-button {
+      display: inline-block;
+      background: #2a5298;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      text-decoration: none;
+      margin-top: 1rem;
+    }
+    .download-button:hover {
+      background: #1e3c72;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #2a5298;
+      color: white;
+      margin-top: 3rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+    .modal-content button {
+      background: #2a5298;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .modal-content .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media (max-width: 600px) {
+      .tabs button {
+        flex: 1 0 100%;
+        padding: 0.75rem;
+        font-size: 15px;
+      }
+      .profile-picture {
+        position: static;
+        margin-bottom: 1rem;
+      }
+      header {
+        padding-bottom: 2rem;
+      }
+    }
+    .dark-mode {
+      background-color: #121212;
+      color: #f5f5f5;
+    }
+    .dark-mode section {
+      background-color: #1e1e1e;
+      color: #f5f5f5;
+    }
+    .dark-mode header {
+      background: linear-gradient(135deg, #000000, #2a2a2a);
+    }
+    .dark-mode .tabs button {
+      background-color: #2a2a2a;
+      color: #f5f5f5;
+      border-color: #555;
+    }
+    .dark-mode .tabs button.active,
+    .dark-mode .tabs button:hover {
+      background-color: #444;
+      color: #fff;
+    }
+    .dark-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #2a5298;
+    }
+  </style>
+</head>
+<body>
+<header style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 2rem">
+  <button class="dark-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  <img src="./P.TAMIL SELVI.jpg" alt="Profile Picture" class="profile-picture" id="profileImage" style="margin: 0 1rem 0 0; align-self: flex-start;">
+  <div style="text-align: left;">
+    <h1>Dr.P.TAMIL SELVI</h1>
+    
+  </div>
+  <p>Assistant Professor | Department of Computer Science</p>
+  <input type="file" id="fileInput" accept="image/*" style="display:none">
+  <button onclick="showModal()">Change Profile</button>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="about">About</button>
+  <button class="tab-btn" data-tab="Academic Excellence">Academic Excellence</button>
+  <button class="tab-btn" data-tab="Teaching Excellence">Teaching Excellence</button>
+  <button class="tab-btn" data-tab="Journal Publications">Journal Publications</button>
+  <button class="tab-btn" data-tab="Books Publications">Books Publications</button>
+  <button class="tab-btn" data-tab="Books Chapter">Books Chapter Publications</button>
+  <button class="tab-btn" data-tab="Patent Filing">Patent Filing</button>
+  <button class="tab-btn" data-tab="Paper Presentations">Paper Presentations</button>
+  <button class="tab-btn" data-tab="Courses">Courses / Certifications</button>
+  <button class="tab-btn" data-tab="Fdp">Faculty Development Program</button>
+  <button class="tab-btn" data-tab="Memberships">Memberships</button>
+  <button class="tab-btn" data-tab="Roles">Roles & Resposibilities</button>
+  <button class="tab-btn" data-tab="projects">Thesis / Disseratation / Projects</button>
+  <button class="tab-btn" data-tab="Awards">Awards & Achievements</button>
+  <button class="tab-btn" data-tab="resume">Resume</button>
+  <button class="tab-btn" data-tab="contact">Contact</button>
+</div>
+
+<section id="about" class="active">
+  <h2>About Me</h2>
+  <p>I'm Dr. P. Tamil Selvi — a passionate educator and researcher dedicated to inspiring young minds in the field of Computer Science. I currently serve as a Guest Lecturer in the Department of Computer Science at Government Arts & Science College (Co-Education), Avinashi. </p> <br>
+<p>With over 15 years of combined experience in industry, academia, and research, my journey has been rooted in advancing knowledge and nurturing innovation. I hold a Ph.D. in Computer Science specializing in Network Security and Communications, alongside an M.C.A. and M.Phil. from Bharathiar University, where I also completed my undergraduate studies.</p><br>
+<p>Throughout my career, I’ve presented 30+ research papers at national and international platforms, published two Indian patents in Artificial Intelligence, and received prestigious recognitions such as the Best Faculty Award and Best Young Researcher Award.</p><br><p>📚 I’m a UGC-NET qualified academic who thrives on building engaging learning experiences—whether through guest lectures, workshops, or conferences. I’m also a reviewer and editorial board member for several international peer-reviewed journals.</p><br>
+<h3>My Key Focus Areas</h3><br>
+🔐 Network Security & Wireless Communication<br>
+🧠 Artificial Intelligence & Soft Computing<br>
+💻 Software Engineering & Emerging Tech Trends<br>
+
+<br>I believe in shaping future-ready technologists who can think critically, code ethically, and innovate fearlessly.
+
+</p>
+</section>
+
+<section id="Academic Excellence">
+  <h2>Academic Excellence</h2>
+  <ul>
+    <li>Ph.D in Computer Science – Bharathiar University – 2013-2020</li>
+    <li>M.Phil in Computer Science – P.S.G.R. Krishnammal College for Women – 2009-2011 </li>
+    <li>Master of Computer Applications – P.S.G.R. Krishnammal College for Women – 2006-2009</li>
+    <li>Bachelor of Computer Science – Sri Jayendra Saraswathy Maha Vidyalaya College of Arts and Science – 2003-2006</li>
+  </ul><br>
+  <h2>Eligibility Qualifications</h2>
+  UGC NET </b> - December, 2019 Examination for eligibility for Assistant Professor held on 4th, December, 2019 in the subject Computer Science and Applications.
+</section>
+
+<section id="Teaching Excellence">
+  <h2>Teaching Excellence</h2>
+  <ul>
+    <li>Guest Lecturer, Department of Computer Science, Government Art and Science College (Co-Education), Avinashi, Tirupur (24th January – 2023 to Till Date).</li>
+    <li>Assistant Professor & Head, Department of Information Technology & Computer Science (PG),
+	Michael Job College of Arts and Science for Women, Sulur, Coimbatore (1st, June – 2020 to 23rd January - 2023)
+</li>
+    <li>Assistant Professor, Department of Computer Science,
+	Michael Job College of Arts and Science for Women, Sulur, Coimbatore (1st, August – 2011 to 31st May - 2020).
+</li>
+  </ul>
+</section>
+<section id="Journal Publications">
+  <h2>Journal Publications</h2>
+  <ul>
+    <li>“Social Network User Profiling with Multilayer Semantic Modeling using Ego Network”, in International Journal of Information Technology and Web Engineering (IJITWE), IGI Global Publisher, (Scopus & ESCI), Vol-17, Issue-1, Pages: 1 - 14, September 2022.
+</li>
+<li>“Toward Efficient Security-based Authentication for the Internet of Drones in Defense Wireless Communication”, in Soft Computing, Springer, (SCI-E), Vol-26, Issue-10, Pages: 4905-4913, March, 2022.
+</li>
+<li>“Machine Learning Techniques for Cyber Security and Malicious Code Detection”, in Journal of Interdisciplinary Cycle Research, Vol.XIII, Issue.V, Pages: 1856-1860, May, 2021 (UGC-CARE, Group – II).
+</li>
+<li>“A Game Theoretical Approach Based Zone Routing Protocol for Mobile Ad Hoc Networks”, in The International Journal of Analytical and Experimental Modal Analysis, Vol.XII, Issue.1, Pages: 865-871, January, 2020, (UGC-CARE, Group – II).
+</li>
+<li>“A Novel Algorithm for Enhancement of Energy Efficient Zone based Routing Protocol for MANET”, in Mobile Networks & Applications, Springer, (SCI-E), Vol.24, Issue.2, Pages: 307-317, April, 2019, (Impact Factor: 3.259).
+</li>
+<li>“Implementation of Energy Efficient Load Balanced Adaptive Zone Routing Protocol for Mobile Ad Hoc Networks”, in International Journal of Linguistics and Computational Applications (IJLCA), Vol.4, No: 2, Pages: 90 - 95, June – 2017.
+</li>
+<li>“A Review of Energy Aware Routing Protocols for Mobile Ad Hoc Networks” in International Journal of Applied Engineering Research, ISSN: 0973-4562, Vol.10, No : 52(2015), Pages: 370 - 377, April – 2015 (SCOPUS INDEXED).
+</li>
+<li>“Performance Improvement of Energy Aware Hybrid Routing Protocol for Mobile Ad Hoc Networks” in Australian Journal of Basic and Applied Sciences (AJBAS), 9(10), Pages: 99 - 106, March – 2015 (ANNEXURE – II, ANNA UNIVERSITY).
+</li>
+<li>“Multimodal Biometrics based Authentication against Dictionary Attacks” in International Journal on Computer Science and Engineering (IJCSE) Volume 02, No. 08, November 2010.
+</li>
+<li>“Palmprint and Iris based Authentication and Secure Key Exchange against Dictionary Attacks” in International Journal of Computer Applications (IJCA) Volume 11, No. 11, December 2010.
+</li>
+  </ul>
+</section>
+<section id="Books Publications">
+  <h2>Books Publications</h2>
+  <ul>
+    <li>“Applications of Artificial Intelligence”, AGPH Books, First Edition, 2022, ISBN – 978-81-955340-4-3.
+</li>
+  </ul>
+</section>
+<section id="Books Chapter">
+  <h2>Books Chapter</h2>
+  <ul><li>“Secured Energy Efficient Routing Protocol with Game –Based Fuzzy Q-Learning Approach for Smart Grid Systems”, in Blockchain Technology for Smart Grids - Implementation, Management and Security, Published by The Institution of Engineering and Technology (IET), Chapter – IV, Pages: 85 - 114, August - 2022, (Scopus Indexed).</li>
+  </ul>
+</section>
+<section id="Patent Filing">
+  <h2>Patent Filing</h2>
+  <ul><li>“NLP & AI based Automatic Detection of Infection Rate of Covid 19”, Indian Patent filed with Application No: 202111023806, Published by Govt of India  on 18th  June 2021.</li>
+  </ul>
+</section>
+<section id="projects">
+  <h2>Projects</h2>
+  <ul>
+    <li><a href="#">AI-Based Alternator Control System</a></li>
+    <li><a href="https://github.com/techtrainer20/blockchain.git" target="_blank">Cloud Security with IBM</a></li>
+    <li><a href="#">IBM Chatbot</a></li>
+    <li><a href="#">Generic Chatbot</a></li>
+  </ul>
+</section>
+
+<section id="resume">
+  <h2>Resume</h2>
+  <a href="./Name list for IBM SkillsBuild.pdf" target="_blank" class="download-button">Download CV</a>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:vignesh@example.com">vignesh@example.com</a></p>
+  <p>Phone: +91-9876543210</p>
+  <p>Location: Chennai, India</p>
+  <div style="margin-top: 1rem;">
+    <a href="https://linkedin.com/in/vignesh" target="_blank">LinkedIn</a> |
+    <a href="https://github.com/vignesh" target="_blank">GitHub</a> |
+    <a href="https://twitter.com/vignesh" target="_blank">Twitter</a> |
+    <a href="https://instagram.com/vignesh" target="_blank">Instagram</a>
+  </div>
+</section>
+
+<section id="certificates">
+  <h2>Certificates</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    <div style="text-align: center;">
+      <a href="https://skills.yourlearning.ibm.com/certificate/share/8a8c01e2efewogICJvYmplY3RJZCIgOiAiVVJMLVBMTFYyTzZVRlRVIiwKICAibGVhcm5lckNOVU0iIDogIjE4OTkzMTdSRUciLAogICJvYmplY3RUeXBlIiA6ICJBQ1RJVklUWSIKfQc61cb1757c-10" target="_blank">
+        <img src="./ibmcert.png" alt="MS-356" style="max-width: 200px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      </a>
+      <p>Cybersecurity Essentials – Cisco</p>
+    </div>
+    <div style="text-align: center;">
+      <a href="https://example.com/certificate2" target="_blank">
+        <img src="certificate2.jpg" alt="Blockchain Fundamentals – IBM" style="max-width: 200px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      </a>
+      <p>Blockchain Fundamentals – IBM</p>
+    </div>
+    <div style="text-align: center;">
+      <a href="https://example.com/certificate3" target="_blank">
+        <img src="certificate3.jpg" alt="Machine Learning with Python – Coursera" style="max-width: 200px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      </a>
+      <p>Machine Learning with Python – Coursera</p>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <h2>Experience</h2>
+  <ul>
+    <li><b>Cybersecurity Analyst</b> – SecureNet Pvt Ltd (2021–Present)<br>Monitored, detected, and mitigated network threats using SIEM tools.</li>
+    <li><b>Penetration Tester</b> – Freelance (2019–2021)<br>Performed ethical hacking assessments for startups and provided mitigation reports.</li>
+    <li><b>Intern – IBM Cloud Division</b> (2018)<br>Worked on automation scripts and cloud deployment prototypes.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>&copy; 2025 Vignesh Mathiyalagan. All rights reserved.</p>
+</footer>
+
+<div class="modal" id="passwordModal">
+  <div class="modal-content">
+    <h3>Enter Password</h3>
+    <input type="password" id="passwordInput" placeholder="Password">
+    <div class="error" id="errorMsg"></div>
+    <button onclick="checkPassword()">Submit</button>
+  </div>
+</div>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const profileImage = document.getElementById('profileImage');
+  const modal = document.getElementById('passwordModal');
+  const passwordInput = document.getElementById('passwordInput');
+  const errorMsg = document.getElementById('errorMsg');
+  const correctPassword = "1234";
+
+  const savedImage = localStorage.getItem("profileImage");
+  if (savedImage) {
+    profileImage.src = savedImage;
+  }
+
+  function showModal() {
+    modal.style.display = 'flex';
+    passwordInput.value = '';
+    errorMsg.textContent = '';
+    passwordInput.focus();
+  }
+
+  function checkPassword() {
+    if (passwordInput.value === correctPassword) {
+      modal.style.display = 'none';
+      fileInput.click();
+    } else {
+      errorMsg.textContent = "Incorrect password!";
+    }
+  }
+
+  fileInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        profileImage.src = e.target.result;
+        localStorage.setItem("profileImage", e.target.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Please select a valid image file.");
+    }
+  });
+
+  window.onclick = function(e) {
+    if (e.target === modal) modal.style.display = "none";
+  };
+
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabSections = document.querySelectorAll('section');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.tab-btn.active').classList.remove('active');
+      btn.classList.add('active');
+      tabSections.forEach(section => section.classList.remove('active'));
+      document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+    });
+  });
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+  }
+</script>
+</body>
+</html>
